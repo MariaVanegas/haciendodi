@@ -1,5 +1,5 @@
 import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./index2.js";
-let base = "";
+let base = "/haciendodi";
 let assets = base;
 const initial = { base, assets };
 function reset() {
@@ -171,7 +171,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1qlu8k4"
+  version_hash: "6od9r1"
 };
 function get_hooks() {
   return {};
