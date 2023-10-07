@@ -51,7 +51,7 @@ export const svgText = readable(svgText_);
 function wrappedText_(maxWidth, cont, text, options) {
   const bs = v => (sepw * 16.5 * v) / 8;
   const lines = [];
-  const words = text.split(' ');
+  const words = text.trim().split(' ');
   let currentLine = '';
   let currentLineWidth = 0;
 
@@ -77,7 +77,9 @@ function wrappedText_(maxWidth, cont, text, options) {
     lines.push(currentLine);
   }
 
-  const sep = testLineHeight * (options.leading || 0.8);
+  
+  const leading = options.leading === undefined ? 0.8 : options.leading;
+  const sep = testLineHeight * leading;
   for (let i = 0; i < lines.length; i++) {
     svgText_(cont, lines[i], {...options, y: options.y !== undefined ? options.y + (i * sep) : i * sep});
   }
@@ -109,7 +111,7 @@ function medal_(cont, text, x, y, type = "arrow") {
   g.append("path")
     .attr("d", line)
     .attr("fill", type === "arrow" ? styling_.arrowcol : styling_.roundcol)
-    wrappedText_(1.8, g, text, {bold: false, "text-anchor": "middle", y: seph, x: medalw/2, "font-size": 12, "alignment-baseline": "hanging", "fill": type === "arrow" ? styling_.arrowf : styling_.roundf});
+    wrappedText_(1.8, g, text, {bold: false, "text-anchor": "middle", y: seph, x: medalw/2, "font-size": 10, "alignment-baseline": "hanging", "fill": type === "arrow" ? styling_.arrowf : styling_.roundf});
 }
 export const medal = readable(medal_)
 

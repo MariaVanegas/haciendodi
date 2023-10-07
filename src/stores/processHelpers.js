@@ -20,7 +20,7 @@ function adjustKeys_(data) {
   }
 
   if (processed.imagen !== undefined) {
-    const groups = /id=(?<id>[a-z0-9]*)/i.exec(processed.imagen).groups;
+    const groups = /id=(?<id>[a-z0-9_-]*)/i.exec(processed.imagen).groups;
     if (groups !== undefined) {
       processed.imagenUrl = imagenUrlBase + groups.id;
     }

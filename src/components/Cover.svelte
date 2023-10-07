@@ -10,6 +10,8 @@
   export let canvasElement = undefined;
   export let data;
 
+  console.log(data);
+
   let sketch;
   let showNumbers = false;
 
@@ -23,23 +25,31 @@
   function setSketch() {
     sketch = (p5) => {
       let img;
+      let imgSuccess = false
       p5.preload = () => {
         // img = p5.loadImage("assets/matrioska.jpeg");
-        img = p5.loadImage(data.imagenUrl);
+        img = p5.loadImage(data.imagenUrl, () => {
+          imgSuccess = true;
+          console.log("loaded image")
+        }, () => {
+          console.log("failed to load image");
+        });
       }
       p5.setup = () => {
         const cnv = p5.createCanvas(w, h).id("canvas");
         cnv.style("z-index", 99)
         p5.stroke("black");
         p5.noFill();
-        p5.fill("red");
+        p5.fill("lightgray");
 
         const ix = sepw;
         const iy = seph * 8;
         const iw = sepw * 18;
         const ih = seph * 7;
         p5.rect(ix, iy, iw, ih);
-        p5.image(img, ix, iy, iw, ih, 0, 0, img.width, img.height, p5.COVER);
+        if (imgSuccess) {
+          p5.image(img, ix, iy, iw, ih, 0, 0, img.width, img.height, p5.COVER);
+        }
         canvasElement = cnv.elt;
       };
     };
@@ -69,20 +79,19 @@
 
     // Izquierda
     const izquierda = svg.append("g").attr("transform", `translate(${sepw},${0})`);
-    $wrappedText(10, izquierda, data.contexto, {bold: false, "text-anchor": "start", y: seph*17, "font-size": 13, "alignment-baseline": "hanging"});
+    $wrappedText(10, izquierda, data.contexto, {bold: false, "text-anchor": "start", y: seph*16, "font-size": 13, "alignment-baseline": "hanging", leading: 0.9});
 
     // Derecha
     const derecha = svg.append("g").attr("transform", `translate(${w - sepw},${0})`);
 
     $svgText(derecha, data.asignatura, {bold: true, "text-anchor": "end", y: seph + seph*0.4, "font-size": 13});
-    $svgText(derecha, `Diseño de secuencia: ${data.autor}`, {bold: false, "text-anchor": "end", y: seph*2, "font-size": 13});
+    $svgText(derecha, `Elaborado por: ${data.autor}`, {bold: false, "text-anchor": "end", y: seph*2, "font-size": 13});
 
     $svgText(derecha, data.titulo, {bold: true, "text-anchor": "end", y: seph*4, "font-size": 26});
-
     $wrappedText(8, derecha, data.concepto, {bold: false, "text-anchor": "end", y: seph*5, "font-size": 15, "alignment-baseline": "hanging"});
 
     $svgText(derecha, "Palabras clave", {bold: true, "text-anchor": "end", y: seph*16, "font-size": 13, "alignment-baseline": "hanging"});
-    $wrappedText(5, derecha, data.claves, {bold: false, "text-anchor": "end", y: seph*17, "font-size": 13, "alignment-baseline": "hanging"});
+    $wrappedText(5.5, derecha, data.claves, {bold: false, "text-anchor": "end", y: seph*17, "font-size": 13, "alignment-baseline": "hanging"});
 
     $svgText(derecha, "Vocabulario", {bold: true, "text-anchor": "end", y: seph*19, "font-size": 13, "alignment-baseline": "hanging"});
     $wrappedText(5.5, derecha, data.definiciones, {bold: false, "text-anchor": "end", y: seph*20, "font-size": 13, "alignment-baseline": "hanging"});
