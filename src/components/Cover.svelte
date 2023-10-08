@@ -79,7 +79,7 @@
 
     // Izquierda
     const izquierda = svg.append("g").attr("transform", `translate(${sepw},${0})`);
-    $wrappedText(10, izquierda, data.contexto, {bold: false, "text-anchor": "start", y: seph*16, "font-size": 13, "alignment-baseline": "hanging", leading: 0.9});
+    $wrappedText(9.2, izquierda, data.contexto, {bold: false, "text-anchor": "start", y: seph*16, "font-size": 13, "alignment-baseline": "hanging", leading: 0.9});
 
     // Derecha
     const derecha = svg.append("g").attr("transform", `translate(${w - sepw},${0})`);
