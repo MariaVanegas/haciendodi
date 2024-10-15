@@ -26,16 +26,19 @@
     sketch = (p5) => {
       let img;
       let imgSuccess = false
-      p5.preload = () => {
-        // img = p5.loadImage("assets/matrioska.jpeg");
+      p5.preload = async () => {
+        // img = await  new Promise(r => {p5.loadImage("assets/matrioska.jpeg", img => r(img))});
+        imgSuccess = false;
+        img = p5.loadImage("assets/matrioska.jpeg");
         img = p5.loadImage(data.imagenUrl, () => {
           imgSuccess = true;
           console.log("loaded image")
         }, () => {
           console.log("failed to load image");
-        });
+        });    
+        console.log(img); 
       }
-      p5.setup = () => {
+      p5.setup = async () => {
         const cnv = p5.createCanvas(w, h).id("canvas");
         cnv.style("z-index", 99)
         p5.stroke("black");
@@ -50,6 +53,11 @@
         if (imgSuccess) {
           p5.image(img, ix, iy, iw, ih, 0, 0, img.width, img.height, p5.COVER);
         }
+
+        // img = await  new Promise(r => {p5.loadImage("assets/matrioska.jpeg", img => r(img))});
+        // img = await  new Promise(r => {p5.loadImage("assets/matrioska.jpeg", img => r(img))});
+        // img = await  new Promise(r => {p5.loadImage("https://lh3.googleusercontent.com/d/1euzazG0HtRXS0l3WmZ5qD1cw7awHxVzy", img => r(img))});
+        p5.image(img, ix, iy, iw, ih, 0, 0, img.width, img.height, p5.COVER);
         canvasElement = cnv.elt;
       };
     };

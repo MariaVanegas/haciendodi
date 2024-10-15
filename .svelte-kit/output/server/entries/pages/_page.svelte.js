@@ -153,7 +153,7 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $$rendered;
   do {
     $$settled = true;
-    $$rendered = `${``}`;
+    $$rendered = `${`<div>Esperando datos...</div>`}`;
   } while (!$$settled);
   $$unsubscribe_adjustKeys();
   return $$rendered;

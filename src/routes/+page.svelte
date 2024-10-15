@@ -6,7 +6,8 @@
   import { csv, autoType } from "d3";
   import { adjustKeys } from "../stores/processHelpers";
 
-  const defaultPath = "https://docs.google.com/spreadsheets/d/1zKDz9cCOF-Hi8pbxt_0Eqy7lGFOzFTt0I4vUplHh61k/export?format=csv"
+  // const defaultPath = "https://docs.google.com/spreadsheets/d/1zKDz9cCOF-Hi8pbxt_0Eqy7lGFOzFTt0I4vUplHh61k/export?format=csv" // anterior
+  const defaultPath = "https://docs.google.com/spreadsheets/d/1qvy0Btv_y6eC7pWvNu07rwxkysz5W1hlBG642OY1l3k/export?format=csv&gid=1272310757";
 
   let sheetsData;
   let data;
@@ -17,7 +18,9 @@
   onMount(async () => {
     sheetsData = (await csv(defaultPath, autoType)).map(d => $adjustKeys(d));
     data = sheetsData[dataIndex];
-    ready = true;
+    if (data !== undefined) {
+      ready = true;
+    }
   })
 
   function changeSelectedRow(e) {
@@ -59,6 +62,8 @@
       {/key}
     </div>
   </div>
+{:else}
+  <div>Esperando datos...</div>
 {/if}
 
 <style>
